@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -13,9 +14,9 @@ class StudentController extends Controller
     public function index()
     {
 
-        return view('student.index ', [
+        return view('student.index', [
             'title' => 'student',
-            'students' =>  Student::all(),
+            'students' =>  student::latest()->get(),
             ]);
     }
 
@@ -24,7 +25,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('student.create ', ['title' => ' Create student']);
+        return view('student.create', ['title' => ' Create student']);
     }
 
     /**
@@ -32,8 +33,21 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+                'name' => 'required|max:255',
+                'nim' => 'required|digits:11|numeric',
+            ],  [
+                'name.required' => 'Name tidak boleh kosong',
+                'name.max' => 'Name maximal 225 karakter',
+                'nim.required' => 'Nim tidak boleh kosong',
+                'nim.digits' => 'Nim harus 11 digit',
+                'nim.numeric' => 'Nim harus angka',
+            ]);
+
+        Student::create($validated);
+        return to_route('student.index')->withSuccess('Data berhasil ditambahkan');
     }
+
 
     /**
      * Display the specified resource.
@@ -43,12 +57,15 @@ class StudentController extends Controller
         //
     }
 
-    /**
+    /** 
      * Show the form for editing the specified resource.
      */
     public function edit(Student $student)
     {
-        //
+        return view('student.edit', [
+            'title' => 'edit student',
+            'student' =>  $student,
+        ]);
     }
 
     /**
@@ -56,7 +73,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'nim' => 'required|digits:11|numeric',
+        ],  [
+            'name.required' => 'Name tidak boleh kosong',
+            'name.max' => 'Name maximal 225 karakter',
+            'nim.required' => 'Nim tidak boleh kosong',
+            'nim.digits' => 'Nim harus 11 digit',
+            'nim.numeric' => 'Nim harus angka',
+        ]);
+
+        $student->update($validated);
+        return to_route('student.index')->withSuccess('Data berhasil diubah');
     }
 
     /**
@@ -64,6 +93,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+
+        $student->delete($student);
+        return to_route('student.index')->withSuccess('Data berhasil dihapus');
     }
 }

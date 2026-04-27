@@ -17,7 +17,6 @@
             <label for="department_id" class="form-label">Department</label>
 
             <select class="form-select @error('department_id') is-invalid @enderror" id="department_id"
-                name="department_id">
                 <option value="">Choose Department</option>
                 @foreach ($departments as $department)
                     <option value="{{ $department->id }}" @selected(old('department_id') == $department->id)>{{ $department->name }}

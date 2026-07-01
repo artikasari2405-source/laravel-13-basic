@@ -7,16 +7,16 @@
         </div>
         @endsession
 
-    <a class="btn btn-primary mb-3" href="{{ route ('student.create') }} " role="button">Create</a>
+    <a class="btn btn-primary mb-3" href="{{ route ('organization.create') }} " role="button">Create</a>
 
     <ul class="list-group">
-        @foreach ($students as $student)
+        @foreach ($organizations as $organization)
             <li class="list-group-item">
-                {{ $loop->iteration }}. {{ $student->nim }} -- {{ $student->name }}
-
-                <a class="btn btn-warning btn-sm " href="{{ route('student.edit', $student) }}"
+                {{ $loop->iteration }}.  {{ $organization->OrganizationLeader_name}} --
+                {{ $organization ->name}}
+                <a class="btn btn-warning btn-sm " href="{{ route('organization.edit', $organization) }}"
                     role="button">Edit</a>
-                <form action="{{ route('student.destroy', $student) }}" method="POST" class="d-inline">
+                <form action="{{ route('organization.destroy', $organization) }}" method="POST" class="d-inline">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger btn-sm"

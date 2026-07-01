@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
-class DepartmentController extends Controller
+class OrganizationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-    return view('department.index', [
-            'title' => 'Department',
-            'departments' =>  Department::latest()->get(),
-            ]);
+
+        return view('organization.index', [
+            'title' => 'organization',
+            'organizations' =>  organization::latest()->get(),
+        ]);
     }
 
     /**
@@ -38,21 +38,15 @@ class DepartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Department $department)
+    public function show(Organization $organization)
     {
-        return view('department.show',
-            [
-                'title' => 'Detail Department',
-                'department' => $department,
-
-            ]
-        );
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Department $department)
+    public function edit(Organization $organization)
     {
         //
     }
@@ -60,7 +54,7 @@ class DepartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Department $department)
+    public function update(Request $request, Organization $organization)
     {
         //
     }
@@ -68,7 +62,7 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Department $department)
+    public function destroy(Organization $organization)
     {
         //
     }

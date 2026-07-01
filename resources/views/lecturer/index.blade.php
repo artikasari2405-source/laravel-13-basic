@@ -41,6 +41,10 @@
             <li class="list-group-item">
                 {{ $lecturers->firstItem() + $loop->index }}. {{ $lecturer->name }} --
                 {{ $lecturer->department->name }}
+                
+                <a class="btn btn-info btn-sm" href="{{ route ('lecturer.show', $lecturer) }}" role="button">Detail</a>
+
+                
                 <a class="btn btn-warning btn-sm" href="{{ route('lecturer.edit', $lecturer) }}"
                     role="button">Edit</a>
                 <form action="{{ route('lecturer.destroy', $lecturer) }}" method="POST" class="d-inline">

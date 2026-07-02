@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-#[Fillable(['leader_name', 'organization_id'])]
+#[Fillable(['name'])]
 class Organization extends Model
 {
     /** @use HasFactory<\Database\Factories\OrganizationFactory> */
     use HasFactory, HasUuids;
 
-    public function OrganizationLeader(): HasOne
+    public function organizationLeader(): HasOne
     {
         return $this->hasOne(OrganizationLeader::class);
     }

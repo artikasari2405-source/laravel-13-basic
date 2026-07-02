@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
     /**
@@ -97,4 +98,33 @@ class StudentController extends Controller
         $student->delete($student);
         return to_route('student.index')->withSuccess('Data berhasil dihapus');
     }
+
+    public function trash()
+    {
+        return view('student.trash', [
+            'title' => 'Trash Student',
+            'students' => Student::withTrashed()->latest()->get(),
+        ]);
+
+    public function destroy(Student $student)
+    {
+
+        $student->restore();
+        return to_route('student.trash')->withSuccess('Data berhasil dikembalikan');
+    }
+    
+
+public function forceDelete(Student $student)
+    {
+
+        $student->forceDelete();
+        return to_route('student.trash')->withSuccess('Data berhasil dihapus secara permanen');
+    }
+    
+    
+
 }
+
+        
+
+        
